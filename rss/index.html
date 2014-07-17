@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[randomnoob]]></title><description><![CDATA[computer addict, linux beginner, python noob]]></description><link>http://randomnoob.github.io/</link><generator>Ghost v0.4.2</generator><lastBuildDate>Thu, 17 Jul 2014 01:40:47 GMT</lastBuildDate><atom:link href="http://randomnoob.github.io/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[Bài toán đơn giản]]></title><description><![CDATA[<p>Mới đây, tranh thủ kì nghỉ hè rảnh rỗi, tôi có ngồi đọc lại quyển <em>Introduction to Computational and Programming using Python</em> của <strong>John V. Guttag</strong>, một phần cũng vì muốn có gì đó để nghiên cứu cho bõ công, phần khác vì nhận thấy kiến thức từ cái khóa 6.00x đã học gần như quên béng mất rồi. Lần này có điểm mới hơn, tôi thực hành trên linux mint thay vì trên windows, cũng là để học qua cách sử dụng linux. Phần đầu cuốn sách có một vài bài thực hành khá đơn giản, nhưng với gà như tôi thì cũng là cả vấn đề.</p>
+
+<h3 id="yucu">Yêu cầu</h3>
+
+<p>Let s be a string that contains a sequence of decimal numbers separated by commas, e.g. <code>s='1.23, 2.4, 3.123'</code>. Write a program that prints the sum of the numbers in s</p>
+
+<h3 id="hngi">Hướng đi</h3>
+
+<p>Mới đầu mình nghĩ đến việc dùng vòng lặp for với cả cái chuỗi đấy, so sánh từng kí tự với kí tự <code>,</code> , hí hửng vỗ đùi : dễ!, nhưng đến khi bắt tay vào làm mới thấy nếu làm vậy thì không thể biết được dấu phẩy nằm ở chỗ nào của chuỗi. Lập tức mình chuyển sang đặt biến chạy từ vị trí 0 đến <code>len(s)</code> của chuỗi, nhưng lặp lằng nhằng một hồi vẫn báo syntax error, đây là đoạn code đó :  </p>
+
+<pre><code>s = raw_input('Enter a sequence of numbers separated by commas: ')  
+count = 0  
+sumNumbers = 0  
+for i in range(0, len(s[count:])):  
+    if s[i] == ',':
+        {
+            sumNumbers = sumNumbers + int(s[:i])
+            count = i
+        }
+print sumNumbers  
+</code></pre>
+
+<p>Mình đành chuyển sang một hướng khác, đó là với mỗi kí tự không phải là <code>,</code> , mình sẽ bind kí tự đó vào một chuỗi khác gọi là <code>char</code>, sau đó đến khi gặp kí tự <code>,</code> thì sẽ cast cái chuỗi <code>char</code> đang có thành kiểu float rồi cộng vào biến <code>total</code>.Ý tưởng khá hay này không phải do mình nghĩ ra mà là sau một hồi nghiên cứu trên StackOverFlow. Mới đầu thì mình code thế này :  </p>
+
+<pre><code>s = raw_input('Enter a sequence of numbers separated by commas: ')  
+init = 0  
+char = ''  
+total = 0  
+for init in s:  
+    if init == ',':
+        total = total + float(char)
+        char = ''
+    else:
+        char = char + init
+print total  
+</code></pre>
+
+<p>Và rồi chạy thử với đúng cái chuỗi như đề bài thì nó ra kết quả 3.63 :( <br />
+Vì đã có kinh nghiệm "debug" nên mình phang ngay <code>print char</code> vào sau <code>char = char + init</code> <strong>:P</strong> , chạy thử, nhận thấy ngay một điều : số cuối cùng trong chuỗi không được xử lí vì nếu chỉ so sánh <code>init</code> với <code>,</code> thì đến cuối chuỗi làm gì còn <code>,</code> mà nhảy vào trong lệnh <code>if</code>. Biết được lỗi, sửa lại thêm một tí là chạy được :P  </p>
+
+<pre><code>s = raw_input('Enter a sequence of numbers separated by commas: ')  
+init = 0  
+char = ''  
+total = 0  
+for init in s:  
+    if init == ',':
+        total = total + float(char)
+        char = ''
+    else:
+        char = char + init
+if char != '':  
+    total = total + float(char)
+print total  
+</code></pre>
+
+<h3 id="kt">Kết</h3>
+
+<p>Tất nhiên một bài vớ vẩn như này thì có thể chỉ cần dùng method <code>str.split()</code> là xong, nhưng mình nghĩ bài này cũng đơn giản, bày ra ở phần đầu cuốn sách thì có lẽ cũng làm được bằng vòng lặp đơn giản, không cần thiết đao to búa lớn làm gì. Mỗi tội nó làm tốn của mình tới 2 tiếng đồng hồ, gà mà :P</p>]]></description><link>http://randomnoob.github.io/bai-toan-don-gian/</link><guid isPermaLink="false">218da01f-8ea6-41a0-b143-ee8f8a87376e</guid><category><![CDATA[python]]></category><dc:creator><![CDATA[Tuan Tran]]></dc:creator><pubDate>Mon, 07 Jul 2014 16:16:48 GMT</pubDate></item></channel></rss>
